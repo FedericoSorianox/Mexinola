@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',  # Agregado
     'cloudinary',          # Agregado
     'productos',
-    'api',
 ]
 
 MIDDLEWARE = [
