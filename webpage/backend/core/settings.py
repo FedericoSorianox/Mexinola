@@ -78,22 +78,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Configuración más robusta para base de datos
-if DEBUG:
-    # Desarrollo - SQLite
+DATABASE_URL = config('DATABASE_URL', default=None)
+
+if DATABASE_URL:
+    # Producción - PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    # Desarrollo - SQLite (también como fallback)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
-    }
-else:
-    # Producción - PostgreSQL
-    DATABASES = {
-        'default': dj_database_url.parse(
-            config('DATABASE_URL'),
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
     }
 
 
