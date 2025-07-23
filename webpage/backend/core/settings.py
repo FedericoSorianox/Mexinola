@@ -190,9 +190,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://tu-frontend-nombre.onrender.com",  # Agrega esta línea
 ]
 
-CORS_ALLOW_CREDENTIALS = True  # Eliminar duplicado
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 
 CORS_ALLOWED_HEADERS = [
