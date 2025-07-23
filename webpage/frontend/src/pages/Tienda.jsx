@@ -84,10 +84,43 @@ function Tienda() {
           {
             id: 6,
             nombre: "Semillas de Chía",
-            descripcion: "Semillas de chía orgánicas, fuente de omega-3", // Corregido: descripcion en lugar de descripción
+            descripcion: "Semillas de chía orgánicas, fuente de omega-3",
             categoria: "Semillas",
             imagen_final: "https://images.unsplash.com/photo-1595475038665-86db10beeebb?w=400",
             precios: [{ precio: 165, cantidad: "300g" }]
+          },
+          // Agregando productos de Frutos Secos para que el filtro funcione
+          {
+            id: 7,
+            nombre: "Almendras Naturales",
+            descripcion: "Almendras crudas sin sal, ricas en vitamina E",
+            categoria: "Frutos Secos",
+            imagen_final: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=400",
+            precios: [{ precio: 220, cantidad: "250g" }]
+          },
+          {
+            id: 8,
+            nombre: "Nueces de Castilla",
+            descripcion: "Nueces frescas, perfectas para snacks saludables",
+            categoria: "Frutos Secos",
+            imagen_final: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400",
+            precios: [{ precio: 280, cantidad: "200g" }]
+          },
+          {
+            id: 9,
+            nombre: "Pistaches Tostados",
+            descripcion: "Pistaches ligeramente tostados y sin sal",
+            categoria: "Frutos Secos",
+            imagen_final: "https://images.unsplash.com/photo-1599735425000-53e588661d46?w=400",
+            precios: [{ precio: 350, cantidad: "150g" }]
+          },
+          {
+            id: 10,
+            nombre: "Mix de Frutos Secos",
+            descripcion: "Mezcla balanceada de almendras, nueces y pistaches",
+            categoria: "Frutos Secos",
+            imagen_final: "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400",
+            precios: [{ precio: 180, cantidad: "200g" }]
           }
         ]);
       } finally {
@@ -100,13 +133,26 @@ function Tienda() {
 
   // Filter and sort products
   const productosFiltrados = React.useMemo(() => {
+    console.log('Filtro aplicado:', filtroCategoria);
+    console.log('Productos disponibles:', productos.map(p => ({ nombre: p.nombre, categoria: p.categoria })));
+    
     let filtered = productos.filter(producto => {
       const matchesBusqueda = producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
                             (producto.descripcion || '').toLowerCase().includes(busqueda.toLowerCase());
       
       if (filtroCategoria === 'todos') return matchesBusqueda;
-      return matchesBusqueda && producto.categoria === filtroCategoria;
+      
+      const categoriaProducto = typeof producto.categoria === 'object' && producto.categoria !== null 
+        ? producto.categoria.nombre || producto.categoria.id 
+        : producto.categoria;
+      
+      const categoriaMatch = categoriaProducto === filtroCategoria;
+      console.log(`Producto: ${producto.nombre}, Categoría: ${categoriaProducto}, Filtro: ${filtroCategoria}, Match: ${categoriaMatch && matchesBusqueda}`);
+      
+      return matchesBusqueda && categoriaMatch;
     });
+
+    console.log('Productos filtrados:', filtered.length);
 
     return filtered.sort((a, b) => {
       switch (ordenamiento) {
@@ -577,7 +623,7 @@ function Tienda() {
                     <div className="p-4 bg-blue-50 rounded-2xl">
                       <h4 className="font-semibold text-gray-800 mb-2">🚚 Envío Disponible</h4>
                       <p className="text-gray-600 text-sm">
-                        Realizamos envíos a toda la República Mexicana.
+                        Realizamos envíos en ciudad de la costa y alrededores. Consulta nuestras tarifas.
                       </p>
                     </div>
                   </div>
@@ -585,13 +631,15 @@ function Tienda() {
 
                 {/* Action Buttons */}
                 <div className="space-y-4">
-                  <button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-lg">
-                    🛒 Agregar al Carrito
-                  </button>
+                  {/* Temporalmente oculto */}
+                  {/* <button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-lg">
+                    Sumar a la orden de pedido
+                  </button> */}
                   
-                  <button className="w-full bg-white border-2 border-green-600 text-green-600 font-bold py-4 px-8 rounded-2xl hover:bg-green-50 transition-all duration-300 text-lg">
+                  {/* Temporalmente oculto */}
+                  {/* <button className="w-full bg-white border-2 border-green-600 text-green-600 font-bold py-4 px-8 rounded-2xl hover:bg-green-50 transition-all duration-300 text-lg">
                     💬 Contactar por WhatsApp
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
