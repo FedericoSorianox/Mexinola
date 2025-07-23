@@ -190,7 +190,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://mexinolafe.onrender.com",  # Agrega esta línea
+    "http://mexinolafe.onrender.com",  # Agrega esta línea
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -223,4 +223,4 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,https://mexinola.onrender.com').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,mexinola.onrender.com').split(',')
