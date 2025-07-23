@@ -134,9 +134,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Si usas archivos estáticos adicionales
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+# Configuración más robusta para STATICFILES_DIRS
+STATICFILES_DIRS = []
+static_dir = os.path.join(BASE_DIR, 'static')
+if os.path.exists(static_dir):
+    STATICFILES_DIRS.append(static_dir)
+
+# Configuración adicional para archivos estáticos
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 # Cloudinary configuration
