@@ -10,4 +10,7 @@ export default defineConfig({
       '/api': 'http://localhost:8000',
     },
   },
+  preview: {
+    allowedHosts: ['mexinolafe.onrender.com'],
+  },
 })
